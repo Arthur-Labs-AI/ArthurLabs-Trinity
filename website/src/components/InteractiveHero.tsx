@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { DESKTOP_MOTION_QUERY } from '@/lib/motion';
 import { products } from '@/lib/products';
 import { ProductWindow } from './ProductWindow';
 import { WorkflowAnimation, sceneFor, chapterPositions } from './WorkflowAnimation';
@@ -15,8 +16,8 @@ export function InteractiveHero() {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
     const media = gsap.matchMedia();
-    // The short-phone and reduced-motion layouts are non-sticky, selectable previews.
-    media.add('(prefers-reduced-motion: no-preference) and (min-height: 701px), (prefers-reduced-motion: no-preference) and (min-width: 761px)', () => {
+    // Mobile and reduced motion use selectable previews in normal flow.
+    media.add(DESKTOP_MOTION_QUERY, () => {
       const sync = (trigger: ScrollTrigger) => {
         setScene(sceneFor(trigger.progress));
         gsap.set(progressFill.current, { scaleY: trigger.progress });
@@ -43,10 +44,11 @@ export function InteractiveHero() {
   }
   return <section ref={root} className="hero-story" id="home" data-workflow-ready={ready} aria-label="ArthurLabs interactive introduction">
     <div className="hero-sticky" data-scene={scene}>
-      <div className="hero-copy"><div className="eyebrow">THOUGHT / EXECUTION / VERIFICATION</div><h1>From idea <span className="accent">to impact.</span></h1><p className="hero-deck">Capture what matters. Orchestrate intelligent work.<br/>Verify the outcome. Three distinct tools, designed to work together.</p><div className="ctas"><a className="btn primary" href="#suite">Explore the Suite <span aria-hidden="true">↗</span></a><a className="btn secondary" href="#products">Meet the Products <span aria-hidden="true">→</span></a></div></div>
+      <div className="hero-copy"><div className="eyebrow">THOUGHT / EXECUTION / VERIFICATION</div><h1>From idea <span className="accent">to impact.</span></h1><p className="hero-deck">Capture what matters. Orchestrate intelligent work.<br/>{' '}Verify the outcome. Three distinct tools, designed to work together.</p><div className="ctas"><a className="btn primary" href="#suite">Explore Arthur Trinity <span aria-hidden="true">↗</span></a><a className="btn secondary" href="#products">Meet the Products <span aria-hidden="true">→</span></a></div></div>
       <div className="visual-stage">
-        {products.map((product, index) => <ProductWindow key={product.id} product={product} ready={ready} selected={scene === index + 1} onSelect={() => selectChapter(index + 1)}/>)}
-        <WorkflowAnimation ready={ready} scene={scene} select={selectChapter}/>
+        <WorkflowAnimation ready={ready} scene={scene} select={selectChapter}>
+          {products.map((product, index) => <ProductWindow key={product.id} product={product} ready={ready} selected={scene === index + 1} onSelect={() => selectChapter(index + 1)}/>)}
+        </WorkflowAnimation>
       </div>
       <div className="story-progress" aria-hidden="true"><span ref={progressFill}/></div><span className="scroll-cue">SCROLL TO FOLLOW THE WORKFLOW</span>
     </div>

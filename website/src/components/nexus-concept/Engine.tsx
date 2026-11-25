@@ -1,4 +1,5 @@
 'use client';
+import { STATIC_MOTION_QUERY } from '@/lib/motion';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
@@ -18,7 +19,7 @@ export function Engine() {
     useEffect(() => {
         gsap.registerPlugin(ScrollTrigger);
         const media = gsap.matchMedia();
-        media.add({ compact: '(max-width:1000px)', wide: '(min-width:1001px)', short: '(max-height:740px)', reduced: '(prefers-reduced-motion:reduce)' }, ctx => {
+        media.add({ compact: '(max-width:1000px)', wide: '(min-width:1001px)', short: '(max-height:740px)', reduced: STATIC_MOTION_QUERY }, ctx => {
             if (!root.current)
                 return;
             const el = root.current;

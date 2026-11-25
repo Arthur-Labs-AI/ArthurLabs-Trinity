@@ -1,5 +1,5 @@
 import{test,expect}from'@playwright/test';
-for(const[width,height]of[[390,844],[768,1024],[1440,900],[1920,1080]]){
+for(const[width,height]of[[1440,900],[1920,1080]]){
  test(`concept film is continuous and reversible at ${width}px`,async({page})=>{
   await page.setViewportSize({width,height});await page.emulateMedia({reducedMotion:'no-preference'});
   const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await page.goto('/suite/concept');
@@ -23,14 +23,13 @@ test('reduced motion exposes a usable storyboard and preserves both existing rou
  await page.goto('/');await expect(page.getByRole('heading',{level:1})).toBeVisible();
 });
 
-for (const height of [667,844]) test(`mobile held compositions remain readable at 390x${height}`,async({page})=>{
- await page.setViewportSize({width:390,height});await page.emulateMedia({reducedMotion:'no-preference'});await page.goto('/suite/concept');const film=page.locator('[data-concept-film]');await expect(film).toHaveAttribute('data-ready','true');const b=await film.evaluate(e=>({top:e.getBoundingClientRect().top+scrollY,travel:e.clientHeight-innerHeight}));
- for(const p of [.44,.675,.97]){
-  await page.evaluate(y=>scrollTo({top:y,behavior:'instant'}),b.top+b.travel*p);await expect.poll(async()=>Math.abs(Number(await film.getAttribute('data-timeline'))-p)).toBeLessThan(.002);
-  const rects=await page.locator('[data-information]').evaluateAll(nodes=>nodes.map(n=>n.getBoundingClientRect().toJSON()));
-  for(const r of rects){expect(r.x).toBeGreaterThanOrEqual(0);expect(r.right).toBeLessThanOrEqual(390);}
-  for(let i=0;i<rects.length;i++)for(let j=i+1;j<rects.length;j++){const a=rects[i],b=rects[j];expect(Math.max(0,Math.min(a.right,b.right)-Math.max(a.x,b.x))*Math.max(0,Math.min(a.bottom,b.bottom)-Math.max(a.y,b.y))).toBeLessThan(1);}
- }
+for (const height of [667,844]) test(`mobile storyboard is readable without animation at 390x${height}`,async({page})=>{
+ await page.setViewportSize({width:390,height});await page.emulateMedia({reducedMotion:'no-preference'});await page.goto('/suite/concept');
+ await expect(page.locator('[data-concept-film]')).toHaveAttribute('data-motion','reduced');
+ await expect(page.locator('[data-concept-film]')).toBeHidden();
+ await expect(page.getByRole('heading',{name:'The idea is the thread.'})).toBeVisible();
+ expect(await page.locator('#concept-storyboard li').count()).toBeGreaterThan(3);
+ expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBe(390);
 });
 
 test('concept uses crisp scene geometry without raster application backgrounds',async({page})=>{

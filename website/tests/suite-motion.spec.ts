@@ -1,7 +1,7 @@
 import{test,expect}from '@playwright/test';
 import nextConfig from '../next.config';
 import {products} from '../src/lib/products';
-for(const[width,height]of[[390,667],[390,844],[768,1024],[1440,900],[1920,1080]]){
+for(const[width,height]of[[1440,900],[1920,1080]]){
  test(`full workflow motion, bounds and reverse at ${width}x${height}`,async({page})=>{
  await page.setViewportSize({width,height});await page.goto('/suite');const film=page.locator('[data-workflow-film]');await expect(film).toHaveAttribute('data-ready','true');
  const b=await film.evaluate(e=>({top:e.getBoundingClientRect().top+scrollY,travel:e.clientHeight-innerHeight}));

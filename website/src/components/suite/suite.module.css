@@ -85,3 +85,5 @@
  .storyPin{height:100svh;min-height:0;padding-block:76px 10px;gap:8px}.storyMasthead{display:none}.sceneHeading{min-height:115px}.sceneHeading h2{font-size:27px;margin-top:6px}.sceneHeading>p{font-size:10px;line-height:1.5;margin-top:8px}.sceneWorkspace{font-size:7px}.screenViewport{height:130px;aspect-ratio:auto}.interfaceHeader{height:32px}.screenFoot{height:132px}.travelDocument,.destination{width:165px;bottom:-106px;right:12px}.travelDocument .document{padding:9px 10px}.travelDocument .document>strong{font-size:18px}.travelDocument .documentKind{font-size:5px;margin-top:6px}.travelDocument .document ul{margin:8px 0;gap:3px}.travelDocument .document li{font-size:7px}.storyBottom{gap:6px}.storyTransport>button{width:36px;height:36px}
 }
 @media(prefers-reduced-motion:reduce){.walkthrough{height:auto}.storyPin{position:relative;height:auto;min-height:0}.workspaceFocus,.destination{display:none}.travelDocument{transform:none}.suitePage *{will-change:auto!important}}
+
+.mark svg{display:block;width:75%;height:75%;flex:none}

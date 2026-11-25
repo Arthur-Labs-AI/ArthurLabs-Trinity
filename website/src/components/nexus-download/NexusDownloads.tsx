@@ -1,4 +1,5 @@
 'use client';
+import { STATIC_MOTION_QUERY } from '@/lib/motion';
 import { useState, type ReactNode, type MouseEvent } from 'react';
 import Link from 'next/link';
 import { nexusTargets, type NexusRelease, type NexusTarget } from './releases';
@@ -22,7 +23,7 @@ export function NexusDownloadLink({children,className}:{children:ReactNode;class
   if(location.hash!=='#nexus-downloads')history.pushState(null,'','#nexus-downloads');
   target.focus({preventScroll:true});
   const top=target.getBoundingClientRect().top+scrollY-150;
-  scrollTo({top,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
+  scrollTo({top,behavior:matchMedia(STATIC_MOTION_QUERY).matches?'instant':'smooth'});
  }
  return <a href="#nexus-downloads" className={className} onClick={navigate}>{children}</a>;
 }

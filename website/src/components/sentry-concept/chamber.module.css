@@ -5,10 +5,36 @@
 @media(max-width:600px){.hero{padding:100px 0 60px}.identity{gap:10px;padding-bottom:25px}.identity>img{width:34px;height:34px}.identity>span:first-of-type{font-size:20px}.identity small{font-size:6px;letter-spacing:.07em;line-height:1.6}.identityRight{display:none}.heroGrid{padding:42px 0 35px;gap:30px}.hero h1{font-size:clamp(43px,11.4vw,68px)}.heroGrid p{font-size:13px}.heroActions{flex-direction:column;align-items:stretch;max-width:340px}.heroActions .secondary{font-size:11px}.heroStatement{display:block;padding:27px 0 5px}.heroStatement h2{font-size:24px}.heroStatement p{max-width:none;font-size:10px;margin-top:20px}.heroInterface{margin-top:26px}.heroInterface>div{font-size:6px;gap:14px}.heroInterface>div>span:last-child{max-width:90px;text-align:right}.heroInterface figcaption,.productCapture figcaption{font-size:10px}.page h2{font-size:36px}.chamberIntro>p{font-size:14px}.harnessChoices{gap:8px}.harnessChoices label{padding:12px;font-size:11px}.configuration p{font-size:10px}.scopeSelect{font-size:12px}.section,.chamberIntro{padding-block:68px}.filmTop{gap:10px}.filmTop>span{max-width:120px;font-size:7px}.filmTop select{max-width:138px;font-size:8px}.filmTop>a{font-size:8px}.explanation{padding-block:13px 10px;max-height:245px}.explanation h3{font-size:22px}.explanation p{font-size:12px;line-height:1.7}.filmDetails{padding-top:6px;margin-top:7px}.mobileChapter{gap:8px;font-size:9px}.mobileChapter select{max-width:185px;font-size:10px}.replay{font-size:10px!important;padding:10px}.stageNote{font-size:5px;letter-spacing:.02em}.runReport .warning{font-size:10px}.resultDetail p{font-size:11px}.resultDetail .eyebrow{font-size:7px}.resultDetail h4{font-size:18px}.reportTabs button{font-size:9px}.reportTabs button small{font-size:7px}.reportMeta{font-size:7px}.runReport>h3{font-size:22px}.story{padding-block:45px 60px}.story>div{grid-template-columns:1fr;gap:4px}.story summary{font-size:13px}.harnessList h3{font-size:29px}.harnessList article{gap:15px;padding:28px 0}.harnessList p{font-size:12px}.editorial{margin-bottom:35px;gap:25px}.scopeDiagram{padding:24px 20px}.scopeDiagram h3{font-size:25px}.scopeDiagram p{font-size:12px}.manifestFile{font-size:12px}.scopeHarnesses{gap:15px}.scopeHarnesses>span{min-width:100%;font-size:12px}.provenanceChain{gap:20px}.provenanceChain strong{font-size:18px}.provenanceChain span{font-size:8px}.provenanceChain small{font-size:10px}.capabilities{gap:22px}.capabilities h3{font-size:22px}.capabilities p{font-size:11px}.cliReference{padding:20px 16px}.cliReference code{font-size:10px}.cliReference>span{font-size:6px;line-height:1.7}.releaseCard{padding:26px 22px}.releaseCard h3{font-size:27px}.releaseCard p{font-size:12px}.releaseCard .primary{font-size:12px}.inlineLinks{gap:18px;font-size:11px}.hash{font-size:9px}}
 @media(max-height:730px) and (max-width:900px){.canvas{grid-template-rows:42px minmax(0,1fr) 58px}.filmBody{grid-template-rows:minmax(170px,1fr) auto}.explanation{max-height:210px;padding-block:9px}.explanation h3{font-size:19px}.explanation p{font-size:11px}.filmDetails summary{font-size:9px}.runReport{inset:7px 3% 12px}.runReport>h3{font-size:19px}.reportTabs{margin:8px 0}.resultDetail h4{font-size:16px}}
 @media(prefers-reduced-motion:no-preference){.heroGrid{animation:sentry-arrive .9s ease both}.heroInterface{animation:sentry-arrive 1s .12s ease both}@keyframes sentry-arrive{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}}
-@media(prefers-reduced-motion:reduce){.film{height:auto}.canvas{position:relative;top:auto}.film[data-motion=reduced] .canvas{min-height:780px}.runReport{will-change:auto}}
+@media(max-width:900px),(hover:none) and (pointer:coarse),(prefers-reduced-motion:reduce){.film{height:auto}.canvas{position:relative;top:auto}.film[data-motion=reduced] .canvas{min-height:780px}.runReport{will-change:auto}}
 /* Keep internal result labels independent of the site's document footer styling. */
 .chamberCard footer{padding:0;background:none;margin:0;border:0}
 .runReport>footer{padding:14px 0 0;background:none;margin:18px 0 0}
 .filmConfig{position:relative;font:10px monospace;letter-spacing:0}.filmConfig summary{min-height:34px;display:flex;align-items:center;padding:7px 10px;border:1px solid var(--edge);border-radius:3px;list-style:none}.filmConfig fieldset{position:absolute;z-index:20;top:calc(100% + 10px);left:0;width:290px;border:1px solid #92ad77;padding:20px;background:#15231a;box-shadow:0 16px 40px #0009;border-radius:4px}.filmConfig legend{padding:0 5px;font-size:10px}.filmConfig fieldset label{display:flex;align-items:center;font:11px/1.5 monospace;gap:12px;margin:10px 0;min-height:35px;color:#d6e4c9}.filmConfig input{accent-color:#bbd69a}.filmConfig small{display:block;font:9px/1.8 monospace;color:#96a789;margin:14px 0}.filmConfig fieldset label:last-child{display:flex;flex-direction:column;align-items:stretch;gap:8px}.filmConfig fieldset select{max-width:none}
 @media(max-width:900px){.filmTop>span{max-width:140px}.filmConfig summary{font-size:9px}.filmConfig fieldset{width:270px;left:-5px}.filmTop select{max-width:135px}}
 @media(max-width:600px){.filmTop>span{display:none}.filmTop>.filmConfig{margin-right:auto}.filmConfig summary{font-size:9px}.filmTop>label select{max-width:145px}}
+
+/* Mobile chapters change only on selection. No pinned viewport or scroll clock. */
+@media(max-width:900px),(hover:none) and (pointer:coarse){
+ .film[data-motion=reduced] .canvas{position:relative;top:auto;height:auto;min-height:0;grid-template-rows:auto auto auto}
+ .filmBody{grid-template-columns:1fr;grid-template-rows:auto auto}
+ .mobileChapter{display:flex}
+ .chapters{display:none}
+ .visualStage{height:430px;min-height:0}
+ .explanation{max-height:none;padding:24px 6%}
+ .explanation p{font-size:14px}
+ .filmDetails summary{font-size:13px;min-height:44px}
+ .filmBottom{flex-wrap:wrap;gap:12px}
+ .mobileChapter select,.replay,.filmConfig summary{min-height:44px}
+ .film:is([data-stage="7"],[data-stage="8"]) .visualStage{height:auto;padding:20px 4%}
+ .film:is([data-stage="7"],[data-stage="8"]) :is(.pipeline,.stageGrid,.stageNote){display:none}
+ .film:is([data-stage="7"],[data-stage="8"]) .runReport{position:relative;inset:auto;transform:none!important;clip-path:none!important;height:auto}
+ .runReport>h3{font-size:26px}
+ .runReport>footer{font-size:11px;line-height:1.7}
+ .reportTop{font-size:9px}
+ .runReport .resultDetail p,.runReport .warning{font-size:13px}
+ .runReport .resultDetail dd{font-size:12px}
+ .runReport .resultDetail dt{font-size:10px}
+ .runReport .reportTabs button{font-size:12px}
+ .runReport .reportTabs small{font-size:10px}
+ .story p,.story dl{font-size:14px;line-height:1.75}
+}

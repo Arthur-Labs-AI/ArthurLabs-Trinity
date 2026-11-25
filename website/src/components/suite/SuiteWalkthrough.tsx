@@ -1,4 +1,5 @@
 'use client';
+import { STATIC_MOTION_QUERY } from '@/lib/motion';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
@@ -44,7 +45,7 @@ export function SuiteWalkthrough() {
   }
 
   useEffect(() => {
-    const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+    const reduced = matchMedia(STATIC_MOTION_QUERY);
     const short = matchMedia('(max-height: 739px)');
     const mobile = matchMedia('(max-width: 760px)');
     const read = () => setPreferences({ ready: true, reduced: reduced.matches, short: short.matches, mobile: mobile.matches });

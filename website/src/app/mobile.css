@@ -1,0 +1,84 @@
+/* Mobile is a static reading and exploration experience. Desktop keeps its
+   animation timelines. Runtime gating lives in lib/motion.ts. */
+.mobile-workflow-instruction { display: none; }
+@media (max-width: 900px), (hover: none) and (pointer: coarse) {
+  .desktop-workflow-instruction { display: none; }
+  .mobile-workflow-instruction { display: inline; }
+  html { scroll-behavior: auto !important; }
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+    will-change: auto !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  .noise { display: none; }
+  .hero-story { height: auto; }
+  .hero-story .hero-sticky {
+    position: relative;
+    height: auto;
+    min-height: 0;
+    padding: 90px 0 32px;
+    gap: 32px;
+    overflow: clip;
+  }
+  .hero-story .hero-copy {
+    width: min(92%, 640px);
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .hero-story .hero-copy h1 {
+    white-space: normal;
+    font-size: clamp(48px, 10vw, 78px);
+  }
+  .hero-story .hero-deck { font-size: 15px; line-height: 1.65; }
+  .hero-story .hero-deck br { display: none; }
+  .hero-story .ctas { flex-wrap: wrap; gap: 10px; width: 100%; }
+  .hero-story .ctas .btn { min-height: 46px; font-size: 12px; flex: 1; padding-inline: 14px; }
+  .hero-story .visual-stage,
+  .hero-story .hero-sticky:not([data-scene="0"]) .visual-stage {
+    width: min(92%, 640px);
+    height: auto;
+    min-height: 0;
+    flex: none;
+    gap: 24px;
+  }
+  .hero-story .preview-area {
+    flex: none;
+    height: auto;
+    container-type: normal;
+  }
+  .hero-story .preview-canvas {
+    position: static;
+    width: 100%;
+    height: auto;
+    transform: none;
+    perspective: none;
+    display: grid;
+    gap: 18px;
+  }
+  .hero-story .window:is(.arthur,.nexus,.sentry),
+  .hero-story .window:is(.arthur,.nexus,.sentry)[aria-pressed=true] {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    max-width: none;
+    transform: none !important;
+    opacity: 1 !important;
+    filter: none !important;
+    box-shadow: 0 8px 24px #0003;
+  }
+  .hero-story .window-top { height: 28px; }
+  .hero-story .window .image-wrap { inset: 28px 0 0; }
+  .hero-story .top-label { font-size: 11px; }
+  .hero-story .workflow-meta { display: flex; flex-direction: column; gap: 20px; }
+  .hero-story .scene-description { min-height: 0; width: 100%; }
+  .hero-story .scene-description p { font-size: 14px; }
+  .hero-story .stage-bottom { flex-wrap: wrap; flex-direction: row; align-items: center; gap: 12px; width: 100%; }
+  .hero-story .scene-btn { min-width: 44px; min-height: 44px; font-size: 12px; }
+  .hero-story .stage-name { font-size: 10px; }
+  .hero-story .story-progress, .hero-story .scroll-cue,
+  .hero-story .flow-line, .hero-story .scene-label { display: none; }
+  .product .visual, .product .visual:hover { transform: none; }
+}

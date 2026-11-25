@@ -43,7 +43,9 @@ for (const width of [320, 390, 768, 1440, 2560]) {
     const title = await page.locator('h1').boundingBox();
     expect(title!.x).toBeGreaterThanOrEqual(0);
     expect(title!.x + title!.width).toBeLessThanOrEqual(width);
-    await expect(page.getByRole('button', { name: 'Nexus chapter', exact: true })).toBeInViewport();
+    const chapter = page.getByRole('button', { name: 'Nexus chapter', exact: true });
+    if (width <= 900) await expect(chapter).toBeVisible();
+    else await expect(chapter).toBeInViewport();
     if (width < 760) {
       await page.getByLabel('Open navigation').click();
       await page.locator('.mobile-menu').getByRole('link', { name: 'Sentry', exact: true }).click();
@@ -57,7 +59,8 @@ test('reduced motion keeps an accessible selectable hero without a scroll trap',
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
-  expect(await page.locator('.hero-story').evaluate(element => element.clientHeight)).toBeLessThanOrEqual(850);
+  expect(await page.locator('.hero-sticky').evaluate(element => getComputedStyle(element).position)).toBe('relative');
+  expect(await page.locator('.hero-story').evaluate(element => element.clientHeight)).toBe(await page.locator('.hero-sticky').evaluate(element => element.clientHeight));
   await page.getByRole('button', { name: 'Sentry chapter', exact: true }).click();
   await expect(page.locator('.hero-sticky')).toHaveAttribute('data-scene', '3');
   await expect(page.locator('.scene-description')).toContainText('Check the outcome.');

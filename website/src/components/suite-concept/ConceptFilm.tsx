@@ -1,4 +1,5 @@
 'use client';
+import { STATIC_MOTION_QUERY } from '@/lib/motion';
 import Link from 'next/link';
 import {useEffect,useRef,useState} from 'react';
 import {gsap} from 'gsap';
@@ -13,7 +14,7 @@ export function ConceptFilm() {
   useEffect(()=>{
     gsap.registerPlugin(ScrollTrigger);
     const media=gsap.matchMedia();
-    media.add({mobile:'(max-width:760px)',desktop:'(min-width:761px)',compact:'(max-height:740px)',reduced:'(prefers-reduced-motion:reduce)'},context=>{
+    media.add({mobile:'(max-width:760px)',desktop:'(min-width:761px)',compact:'(max-height:740px)',reduced:STATIC_MOTION_QUERY},context=>{
       if(!root.current)return;
       const element=root.current;
       if(context.conditions?.reduced){element.dataset.motion='reduced';element.dataset.ready='true';return;}

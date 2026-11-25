@@ -161,3 +161,29 @@
 .camera{pointer-events:none}.slot{pointer-events:auto}
 
 .noteWords{overflow-wrap:anywhere}.noteWords[data-long=true]{font-size:26px}.flight .noteWords[data-long=true]{font-size:38px}
+
+/* On touch layouts the desk is a readable collection, without a 3D camera or
+   overlapping paper. Objects still open their inspector instantly. */
+@media(max-width:900px),(hover:none) and (pointer:coarse){
+ .camera{perspective:none;transform:none!important;transform-style:flat}
+ .canvas{height:auto;display:grid;grid-template-columns:1fr;gap:20px;padding:16px;transform:none;transform-style:flat}
+ .canvas .slot{position:relative;inset:auto;width:100%;height:260px;transform:none;aspect-ratio:auto}
+ .canvas .slot[data-slot=study]{height:360px}
+ .canvas .slot[data-slot=observations]{height:300px}
+ .canvas .slot[data-slot=question]{height:260px}
+ .canvas .slot[data-slot=revisions]{height:210px}
+ .canvas .slot[data-slot=studio]{height:auto;aspect-ratio:1.38}
+ .deskRule{position:static;padding:16px;inset:auto}
+ .deskRule button,.marginNote,.deskSignature{display:none}
+ .pickUp{opacity:1}
+ .deskObject{box-shadow:0 4px 12px #49362319}
+ .deskInvitation p,.deskInvitation button,.readCollection{font-size:13px}
+ .objectMeta{font-size:10px}
+ .objectFoot{font-size:12px}
+ .deskLegend{font-size:11px}
+ .editorialColumns{grid-template-columns:1fr}
+}
+@media(min-width:600px) and (max-width:900px){.canvas{grid-template-columns:1fr 1fr;align-items:start}}
+
+.studioMark{display:block;width:48px;height:44px;padding:0;flex:none}.studioMark svg{display:block;width:100%;height:100%}
+@media(max-width:700px){.studioMark{width:40px;height:36px}}

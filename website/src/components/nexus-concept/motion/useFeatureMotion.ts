@@ -1,4 +1,5 @@
 'use client';
+import { STATIC_MOTION_QUERY } from '@/lib/motion';
 import { useLayoutEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 export type MotionState = 'idle' | 'playing' | 'paused' | 'inspecting' | 'completed';
@@ -11,25 +12,28 @@ export function useFeatureMotion(count: number, seconds = 2.8) {
   const [reduced, setReduced] = useState(false);
   const [ready, setReady] = useState(false);
   useLayoutEffect(() => {
-    const media = matchMedia('(prefers-reduced-motion: reduce)');
+    const media = matchMedia(STATIC_MOTION_QUERY);
     const preference = () => {
+      timeline.current?.kill();
+      timeline.current = null;
+      const position = Math.round(clock.current.position);
+      clock.current.position = position;
+      setProgress(position);
       setReduced(media.matches);
-      if (media.matches && timeline.current?.isActive()) {
-        timeline.current.pause();
-        const p = Math.round(clock.current.position);
-        timeline.current.time(p * seconds, true);
-        clock.current.position = p;
-        setProgress(p);
-        setState('paused');
+      setState(position === count - 1 ? 'completed' : 'idle');
+      // Phones use discrete steps and never start an animation clock.
+      if (!media.matches) {
+        clock.current.position = 0;
+        const tl = gsap.timeline({ paused: true, onUpdate: () => setProgress(clock.current.position), onComplete: () => setState('completed') });
+        tl.to(clock.current, { position: count - 1, duration: (count - 1) * seconds, ease: 'none' });
+        tl.time(position * seconds, true);
+        timeline.current = tl;
       }
     };
-    const tl = gsap.timeline({ paused: true, onUpdate: () => setProgress(clock.current.position), onComplete: () => setState('completed') });
-    tl.to(clock.current, { position: count - 1, duration: (count - 1) * seconds, ease: 'none' });
-    timeline.current = tl;
     preference();
     setReady(true);
     media.addEventListener('change', preference);
-    return () => { media.removeEventListener('change', preference); tl.kill(); timeline.current = null; };
+    return () => { media.removeEventListener('change', preference); timeline.current?.kill(); timeline.current = null; };
   }, [count, seconds]);
   const step = Math.min(count - 1, Math.floor(progress + .00001));
   function seek(n: number) {
@@ -41,8 +45,8 @@ export function useFeatureMotion(count: number, seconds = 2.8) {
   }
   function pause() { timeline.current?.pause(); setState(s => s === 'completed' ? s : 'paused'); }
   function play(replay = false) {
+    if (matchMedia(STATIC_MOTION_QUERY).matches) { seek(replay ? 0 : Math.min(count - 1, step + 1)); return; }
     if (!timeline.current) return;
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) { seek(replay ? 0 : Math.min(count - 1, step + 1)); return; }
     if (replay || clock.current.position >= count - 1) seek(0);
     setState('playing'); timeline.current?.play();
   }

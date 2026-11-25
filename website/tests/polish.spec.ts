@@ -90,14 +90,16 @@ test('reduced motion selects chapters without seeking and keeps mobile captions 
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
+  await page.locator('.stage-bottom').scrollIntoViewIfNeeded();
+  const initialScroll = await page.evaluate(() => scrollY);
   for (let scene = 1; scene <= 4; scene++) {
     await page.locator('.scene-btn').nth(scene).click();
     await expect(page.locator('.hero-sticky')).toHaveAttribute('data-scene', String(scene));
-    expect(await page.evaluate(() => scrollY)).toBe(0);
+    expect(await page.evaluate(() => scrollY)).toBe(initialScroll);
     const caption = await page.locator('.scene-description').boundingBox();
     const controls = await page.locator('.stage-bottom').boundingBox();
     expect(controls!.y - (caption!.y + caption!.height)).toBeGreaterThanOrEqual(12);
-    expect(controls!.y + controls!.height).toBeLessThan(800);
+    expect(await page.locator('.hero-sticky').evaluate(element => getComputedStyle(element).position)).toBe('relative');
   }
 });
 

@@ -26,13 +26,13 @@
  .storyboard{padding-block:70px}.storyboardIntro>p{font-size:13px}.storyboard ol{grid-template-columns:1fr;margin-block:45px}.storyboard li h3{font-size:25px}.endActions{gap:15px}.endActions a,.endActions button{font-size:11px}
 }
 @media(max-height:740px){.canvas{min-height:0}.topline{top:88px}.openingTitle,.knowledgeCaption,.nexusCaption{top:21%}.openingTitle h1{font-size:clamp(26px,3vw,42px)}.caption{bottom:10%}.caption p{font-size:11px;max-width:350px}.information{min-height:56px;padding-block:8px}.nodeText small{font-size:8px}.filmFooter{bottom:17px}}
-@media(prefers-reduced-motion:reduce){.film{display:none}.storyboard{padding-top:135px}.endActions button{display:none}.experiment *{scroll-behavior:auto!important}}
+@media(max-width:900px),(hover:none) and (pointer:coarse),(prefers-reduced-motion:reduce){.film{display:none}.storyboard{padding-top:135px}.endActions button{display:none}.experiment *{scroll-behavior:auto!important}}
 
 .reducedTitle{display:none}.rootNode [data-idea-text]{clip-path:inset(0 100% 0 0)}
 .knowledgeCaption{top:15%}
 @media(max-width:760px){.knowledgeCaption{top:15%}.nexusCaption{max-width:205px}.nexusCaption>strong{font-size:28px}.nexusCaption em{font-size:26px}}
 @media(max-height:740px){.knowledgeCaption,.nexusCaption{top:22%}.knowledgeCaption>strong,.nexusCaption>strong{display:none}}
-@media(prefers-reduced-motion:reduce){.reducedTitle{display:block;margin:0;padding:140px 6vw 0;font:400 clamp(35px,6vw,70px)/1.1 Georgia,serif;letter-spacing:-.05em;white-space:normal}.storyboard{padding-top:35px}}
+@media(max-width:900px),(hover:none) and (pointer:coarse),(prefers-reduced-motion:reduce){.reducedTitle{display:block;margin:0;padding:140px 6vw 0;font:400 clamp(35px,6vw,70px)/1.1 Georgia,serif;letter-spacing:-.05em;white-space:normal}.storyboard{padding-top:35px}}
 
 .knowledgeCaption>strong{font-size:clamp(28px,2.6vw,38px)}
 @media(max-width:760px){.knowledgeCaption>strong{font-size:29px}}

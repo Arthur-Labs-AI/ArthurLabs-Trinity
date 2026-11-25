@@ -1,8 +1,9 @@
+import {stageAt,stagePositions} from '../src/components/sentry-concept/data';
 import{test,expect,type Page}from'@playwright/test';
 import{eligibleArtifacts,releaseCatalog}from'../src/components/suite-launch/releases';
 import{verifiedNexusReleases}from'../src/components/nexus-download/releases';
 import{verifiedSentryReleases}from'../src/components/sentry-concept/releases';
-async function seek(page:Page,p:number){const film=page.locator('[data-sentry-film]');await expect(film).toHaveAttribute('data-ready','true');await film.evaluate((e,p)=>{const h=parseFloat(getComputedStyle(e).getPropertyValue('--nav'))||74,top=e.getBoundingClientRect().top+scrollY-h;scrollTo({top:top+(e.clientHeight-innerHeight+h)*p,behavior:'instant'});},p);await expect.poll(async()=>Number(await film.getAttribute('data-progress'))).toBeCloseTo(p,2);}
+async function seek(page:Page,p:number){const film=page.locator('[data-sentry-film]');await expect(film).toHaveAttribute('data-ready','true');if(await film.getAttribute('data-motion')==='reduced'){const stage=stageAt(p);await page.getByLabel('Verification chapter',{exact:true}).selectOption(String(stage));await film.evaluate(e=>e.scrollIntoView({block:'start',behavior:'instant'}));await expect.poll(async()=>Number(await film.getAttribute('data-progress'))).toBeCloseTo(stagePositions[stage],2);return;}await film.evaluate((e,p)=>{const h=parseFloat(getComputedStyle(e).getPropertyValue('--nav'))||74,top=e.getBoundingClientRect().top+scrollY-h;scrollTo({top:top+(e.clientHeight-innerHeight+h)*p,behavior:'instant'});},p);await expect.poll(async()=>Number(await film.getAttribute('data-progress'))).toBeCloseTo(p,2);}
 test('one shared catalog preserves Sentry integrity and Nexus fail-closed eligibility',()=>{
  expect(eligibleArtifacts('sentry')).toEqual(verifiedSentryReleases());expect(eligibleArtifacts('sentry')).toHaveLength(1);expect(verifiedNexusReleases()).toEqual([]);expect(eligibleArtifacts('suite')).toEqual([]);
  const artifact=releaseCatalog.find(a=>a.package==='sentry')!;

@@ -1,4 +1,5 @@
 'use client';
+import { STATIC_MOTION_QUERY } from '@/lib/motion';
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -11,7 +12,7 @@ export function LivingWorkflow() {
     useEffect(() => {
         gsap.registerPlugin(ScrollTrigger);
         const media = gsap.matchMedia();
-        media.add({ mobile: '(max-width:900px)', desktop: '(min-width:901px)', reduced: '(prefers-reduced-motion:reduce)' }, ctx => {
+        media.add({ mobile: '(max-width:900px)', desktop: '(min-width:901px)', reduced: STATIC_MOTION_QUERY }, ctx => {
             if (!root.current)
                 return;
             const el = root.current;

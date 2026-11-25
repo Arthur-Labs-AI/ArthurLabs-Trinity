@@ -105,3 +105,12 @@
 
 .novaScene + .controls .rail { grid-template-columns:repeat(3,1fr); }
 @media(max-width:760px){.contextStage{height:680px}}
+
+@media(max-width:900px),(hover:none) and (pointer:coarse){
+ .controls[data-static=true] .transport button{display:none}
+ .controls .state{font-size:12px;margin-left:0}
+ .controls .rail{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .controls .rail button{min-height:48px;font-size:12px;gap:8px}
+ .controls .rail small{font-size:10px}
+ .controls .previousNext>span{font-size:11px}
+}

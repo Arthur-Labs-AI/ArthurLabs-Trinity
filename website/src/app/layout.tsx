@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import './globals.css';
+import './hero.css';
+import './mobile.css';
 export const metadata: Metadata = {
   title: { default: 'ArthurLabs — From idea to impact.', template: '%s — ArthurLabs' },
   description: 'ArthurLabs: connected tools for ideas, orchestration and independent verification.',

@@ -2,7 +2,7 @@ import {test,expect,type Locator} from '@playwright/test';
 import {verifiedNexusReleases,type NexusRelease} from '../src/components/nexus-download/releases';
 const examples=[['native','Trace this request',9],['nova','Simulate orchestration',8],['context','Explore compaction',5],['registry','Evaluate configurations',4]] as const;
 async function geometry(section:Locator){return section.evaluate(el=>JSON.stringify(Array.from(el.querySelectorAll('[data-trace-path],[data-trace-packet],[data-nova-node],[data-nova-edge],[data-context-record],[data-candidate-card],[data-match-line],[data-registry-packet]')).map(n=>[n.getAttribute('transform'),n.getAttribute('d'),n.getAttribute('stroke-dashoffset'),n.getAttribute('opacity'),n.getAttribute('cx'),n.getAttribute('cy'),n.getAttribute('style')])));}
-for(const width of[1440,390])for(const[name,action,last]of examples)test(`${name} has actual interruptible motion at ${width}px`,async({page})=>{
+for(const width of[1440])for(const[name,action,last]of examples)test(`${name} has actual interruptible motion at ${width}px`,async({page})=>{
  await page.setViewportSize({width,height:width===390?844:1000});await page.goto('/nexus/concept');const section=page.locator(`[data-motion=${name}]`),controls=section.locator('[data-motion-controls]');
  await controls.getByRole('button',{name:action}).click();await page.mouse.move(0,0);await expect(section).toHaveAttribute('data-state','playing');await expect.poll(async()=>Number(await section.getAttribute('data-progress'))).toBeGreaterThan(.12);const a=await geometry(section);
  await page.waitForTimeout(650);const b=await geometry(section);expect(b).not.toBe(a);expect(Number(await section.getAttribute('data-progress'))).toBeGreaterThan(.25);

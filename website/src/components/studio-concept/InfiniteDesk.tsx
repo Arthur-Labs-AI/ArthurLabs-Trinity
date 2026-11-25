@@ -1,4 +1,5 @@
 'use client';
+import { STATIC_MOTION_QUERY } from '@/lib/motion';
 import {useEffect,useLayoutEffect,useRef,useState, type PointerEvent} from 'react';
 import {gsap} from 'gsap';
 import {ArrowUpRight,ArrowLeft,RotateCcw} from 'lucide-react';
@@ -14,7 +15,7 @@ export function InfiniteDesk(){
   useEffect(()=>{setReady(true);const currentCamera=camera.current;return()=>{if(currentCamera)gsap.killTweensOf(currentCamera);};},[]);
   useLayoutEffect(()=>{
     if(!selected||!dialog.current||!room.current||!flight.current||!detail.current||!origin.current||!root.current)return;
-    const reduced=matchMedia('(prefers-reduced-motion:reduce)');
+    const reduced=matchMedia(STATIC_MOTION_QUERY);
     inspection.current=createInspection({dialog:dialog.current,room:room.current,flight:flight.current,detail:detail.current,origin:origin.current,desk:root.current,reduced:reduced.matches,onPhase:setPhase,onReturn:()=>{active.current=false;setSelected(null);}});
     const settle=()=>inspection.current?.close(true);
     window.addEventListener('resize',settle);reduced.addEventListener('change',settle);
@@ -27,10 +28,10 @@ export function InfiniteDesk(){
     setSelected(object);
   }
   function parallax(e:PointerEvent<HTMLDivElement>){
-    if(active.current||e.pointerType!=='mouse'||!matchMedia('(hover:hover) and (prefers-reduced-motion:no-preference) and (min-width:900px)').matches)return;
+    if(active.current||e.pointerType!=='mouse'||!matchMedia('(hover:hover) and (prefers-reduced-motion:no-preference) and (min-width:901px)').matches)return;
     const r=e.currentTarget.getBoundingClientRect();gsap.to(camera.current,{rotationY:((e.clientX-r.x)/r.width-.5)*2,rotationX:-((e.clientY-r.y)/r.height-.5)*1.4,duration:.65,ease:'power2.out',overwrite:true});
   }
-  function reset(){if(!active.current)gsap.to(camera.current,{rotationX:0,rotationY:0,duration:matchMedia('(prefers-reduced-motion:reduce)').matches?0:.5,overwrite:true});}
+  function reset(){if(!active.current)gsap.to(camera.current,{rotationX:0,rotationY:0,duration:matchMedia(STATIC_MOTION_QUERY).matches?0:.5,overwrite:true});}
   function explore(){root.current?.querySelector<HTMLButtonElement>('[data-desk-object]')?.focus({preventScroll:true});}
   return <section ref={root} id="infinite-desk" className={styles.deskSection} data-motion={phase} data-selected={selected?.id??'none'} aria-labelledby="desk-title">
     <div className={styles.deskHeading}><div><span className={styles.kicker}>AN OPEN EXPLORATION</span><h2 id="desk-title" tabIndex={-1}>Nothing here is finished.<br/><em>That’s the point.</em></h2></div><div className={styles.deskInvitation}><p>One thought. Many ways to look at it.<br/>Pick up anything that catches your eye.</p><button type="button" onClick={explore} disabled={!ready}>Start exploring <ArrowUpRight size={16}/></button></div></div>

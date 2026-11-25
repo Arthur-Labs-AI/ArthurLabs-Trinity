@@ -1,4 +1,5 @@
 'use client';
+import { DESKTOP_MOTION_QUERY } from '@/lib/motion';
 import { useEffect, useRef, type ReactNode } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -10,7 +11,7 @@ export function SuiteMotion({ children }: { children: ReactNode }) {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
     const media = gsap.matchMedia();
-    media.add('(prefers-reduced-motion: no-preference)', () => {
+    media.add(DESKTOP_MOTION_QUERY, () => {
       const context = gsap.context(() => {
         const select = gsap.utils.selector(root);
         const hero = gsap.timeline({ onComplete: () => { if(root.current) root.current.dataset.entrance = 'complete'; } });
