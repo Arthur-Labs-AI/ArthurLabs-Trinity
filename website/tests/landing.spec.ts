@@ -8,7 +8,7 @@ test('production page hydrates, serves screenshots, and all navigation resolves'
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('From idea to impact.');
   await page.locator('footer').scrollIntoViewIfNeeded();
   await expect.poll(() => page.locator('img').evaluateAll(images => images.every(image => image instanceof HTMLImageElement && image.complete && image.naturalWidth > 0))).toBe(true);
-  const links = await page.locator('a').evaluateAll(anchors => anchors.map(anchor => anchor.getAttribute('href')!).filter(Boolean));
+  const links = await page.locator('a').evaluateAll(anchors => anchors.map(anchor => anchor.getAttribute('href')!).filter(href => href && !/^https?:/.test(href)));
   for (const href of new Set(links)) {
     const [path, hash] = href.split('#');
     const response = await request.get(path || '/');

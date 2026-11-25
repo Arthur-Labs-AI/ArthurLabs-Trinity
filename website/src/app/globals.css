@@ -169,3 +169,12 @@ summary:focus-visible{outline:2px solid #e6d4ff;outline-offset:5px}
   .ctas{gap:10px}
   .ctas .btn{font-size:11px;padding:13px 14px;gap:10px}
 }
+
+/* Official community and source links, shared by every page. */
+.footer-cols{display:grid;grid-template-columns:repeat(3,max-content);gap:clamp(24px,4vw,64px)}
+.footer-cols .footer-social{gap:4px}
+.footer-social>span{margin-bottom:7px}
+.footer-social a{display:inline-flex;align-items:center;gap:10px;min-height:44px}
+.footer-social a:hover{color:#f3f2f1}
+.footer-social svg{flex:none}
+@media(max-width:760px){.footer-cols{width:100%;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px}}
